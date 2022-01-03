@@ -1,0 +1,5 @@
+- name: Install samba
+  apt:
+    name: "{{ fs_package_name }}"
+    state: latest
+  when: ansible_distribution in ["Ubuntu", "Debian"]

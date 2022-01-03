@@ -1,0 +1,31 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+  - name: Install updates
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution in ["Ubuntu", "Debian"]
+
+- hosts: all
+  become: true
+  tasks:
+    - name: Create deployment user
+      user:
+        name: ideploysoftware
+        groups: root
+
+    - name: Set authorised key for ansible user
+      authorized_key:
+        user: ideploysoftware
+        key: "{{ lookup('file', '~/.ssh/ansible_rsa.pub') }}"
+
+    - name: Add ideploysoftware to sudoer list
+      copy:
+        src: sudoer_ideploysoftware
+        dest: /etc/sudoers.d/ideploysoftware
+        owner: root
+        group: root
+        mode: 0440

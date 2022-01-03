@@ -1,0 +1,15 @@
+- name: install apache and php package (Ubuntu)
+  apt:
+    name:
+      - "{{ apache_package_name }}"
+      - "{{ php_package_name }}"
+    state: latest
+  when: ansible_distribution in ["Ubuntu", "Debian"]
+
+- name: install apache and php package (Centos)
+  dnf:
+    name:
+      - "{{ apache_package_name }}"
+      - "{{ php_package_name }}"
+    state: latest
+  when: ansible_distribution == "CentOS"

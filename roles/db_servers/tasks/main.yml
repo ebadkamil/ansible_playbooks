@@ -1,0 +1,5 @@
+- name: Install mariadb
+  apt:
+    name: "{{ db_package_name }}"
+    state: latest
+  when: ansible_distribution in ["Ubuntu", "Debian"]

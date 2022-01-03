@@ -1,0 +1,4 @@
+- name: Set authorised key for ansible user
+  authorized_key:
+    user: ideploysoftware
+    key: "{{ lookup('file', '~/.ssh/ansible_rsa.pub') }}"
